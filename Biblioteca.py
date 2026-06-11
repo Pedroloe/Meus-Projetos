@@ -105,31 +105,106 @@ class Material(ABC): #Materiais da Biblioteca
         self._autor = autor
         self._ano_publicacao = ano_publicacao
 
+    def set_codigo(self, codigo):
+        if len(codigo) >= 5:
+            self._codigo = codigo
 
     @abstractmethod
     def tipo_material(self):
         pass
 
-class Livro(Material):
+class Livro(Material): #Livros Terão Seu Código com Inicio 5
 
     def tipo_material(self):
         return "Livro"
 
-class Revista(Material):
+    def set_codigo(self, codigo):
+        if len(codigo) >= 5:
+            self._codigo = codigo
+    
+    Livro1 = (
+        54952, 
+        "Céu entre as Nuvens", 
+        "Chico Buarque", 
+        2024
+    )
+    
+    Livro2 = (
+        59543,
+        "Picanha Chef",
+        "Don Juan",
+        2019
+    )
+
+
+class Revista(Material): #Revistas Terão Seus Códigos com Inicio 3
 
     def tipo_material(self):
         return "Revista"
+    
+    def set_codigo(self, codigo):
+        if len(codigo) >= 5:
+            self._codigo = codigo
 
-class TCC(Material):
+    Revista1 = (
+        35823,
+        "Como Dormir",
+        "Revista Globo",
+        2023
+    )
+    
+    Revista2 = (
+        39841,
+        "Como Fazer um Café",
+        "EXTRA",
+        2018
+    )
+
+class TCC(Material): #TCC's Terão Seus Códigos com Inicio 9
 
     def tipo_material(self):
         return "TCC"
+    
+    def set_codigo(self, codigo):
+        if len(codigo) >= 5:
+            self._codigo = codigo
 
-class Ebook(Material):
+    TCC1 = (
+        97304,
+        "Introducao ao TCC",
+        "Estácio de Sá",
+        2021
+    )
+
+    TCC2 = (
+        90834,
+        "TCC - Implantodontia",
+        "Unilagos",
+        2025
+    )
+
+class Ebook(Material): #Ebook's Terão Seus Códigos com Início 6
 
     def tipo_material(self):
         return "Ebook"
 
+    def set_codigo(self, codigo):
+        if len(codigo) >= 5:
+            self._codigo = codigo
+
+    EBOOK1 = (
+        68914,
+        "A Volta dos Que Não Foram",
+        "Pixote",
+        2017
+    )
+
+    EBOOK2 = (
+        67054,
+        "O Churrasco Perfeito",
+        "Don Beiçola",
+        2013
+    )
 class Emprestimo:
 
     def __init__(self, usuario, material, data_emprestimo, data_prevista, data_devolucao):
@@ -181,8 +256,11 @@ class Biblioteca:
         self._emprestimos = []
         self._multas = []
 
-    def cadastrar_usuario(self):
-        pass
+    def cadastrar_usuario(self, usuario):
+        self._usuarios = []
+        self._senha = []
+        self._matricula = []
+        self._data_de_entrada = []
 
     def realizar_emprestimo(self, usuario):
         if len(usuario._emprestimos) < usuario._limite_emprestimo:
@@ -193,3 +271,4 @@ class Biblioteca:
 
     def devolver_material(self):
         pass
+
