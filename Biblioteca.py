@@ -2,15 +2,15 @@ from abc import ABC, abstractmethod
 
 class Usuario(ABC): #Clase Principal de Usuarios
 
-    def __init__(self, nome, senha, matricula, email, data_de_entrada, limite_emprestimo, quantidade_emprestimos):
+    def __init__(self, nome, senha, matricula, email, data_de_entrada, limite_emprestimo):
         self._nome = nome
         self._senha = senha
         self._matricula = matricula
         self._email = email
         self._data_de_entrada = data_de_entrada
         self._limite_emprestimo = limite_emprestimo
-        self._quantidade_emprestimo = quantidade_emprestimos
         self._emprestimos = []
+        Usuario
 
     def set_senha(self, senha):
         if len(senha) >= 8:
@@ -24,7 +24,7 @@ class Aluno(Usuario): #Classe aluno herdando a classe Principal
 
     def __init__(self, nome, senha, matricula, email, data_de_entrada, curso, periodo):
 
-        super().__init__(nome, senha, matricula, email, data_de_entrada, 5,)
+        super().__init__(nome, senha, matricula, email, data_de_entrada, 5)
         self._curso = curso
         self._periodo = periodo
 
@@ -106,7 +106,7 @@ class Material(ABC): #Materiais da Biblioteca
         self._ano_publicacao = ano_publicacao
 
     def set_codigo(self, codigo):
-        if len(codigo) >= 5:
+        if len(str(codigo)) >= 5:
             self._codigo = codigo
 
     @abstractmethod
@@ -119,7 +119,7 @@ class Livro(Material): #Livros Terão Seu Código com Inicio 5
         return "Livro"
 
     def set_codigo(self, codigo):
-        if len(codigo) >= 5:
+        if len(str(codigo)) >= 5:
             self._codigo = codigo
     
     Livro1 = (
@@ -135,6 +135,21 @@ class Livro(Material): #Livros Terão Seu Código com Inicio 5
         "Don Juan",
         2019
     )
+    
+    Livro3 = (
+        58123,
+        "Esperança",
+        "Mark Finley",
+        2026
+    )
+
+    livros_alunos = []
+    livros_professores =[]
+    livros_pesquisadores = []
+
+    livros_alunos.append(Livro1)
+    livros_professores.append(Livro2)
+    livros_pesquisadores.append(Livro3)
 
 
 class Revista(Material): #Revistas Terão Seus Códigos com Inicio 3
@@ -143,7 +158,7 @@ class Revista(Material): #Revistas Terão Seus Códigos com Inicio 3
         return "Revista"
     
     def set_codigo(self, codigo):
-        if len(codigo) >= 5:
+        if len(str(codigo)) >= 5:
             self._codigo = codigo
 
     Revista1 = (
@@ -159,6 +174,8 @@ class Revista(Material): #Revistas Terão Seus Códigos com Inicio 3
         "EXTRA",
         2018
     )
+    livros_professor = []
+    livros_professor.appe
 
 class TCC(Material): #TCC's Terão Seus Códigos com Inicio 9
 
@@ -166,7 +183,7 @@ class TCC(Material): #TCC's Terão Seus Códigos com Inicio 9
         return "TCC"
     
     def set_codigo(self, codigo):
-        if len(codigo) >= 5:
+        if len(str(codigo)) >= 5:
             self._codigo = codigo
 
     TCC1 = (
@@ -189,7 +206,7 @@ class Ebook(Material): #Ebook's Terão Seus Códigos com Início 6
         return "Ebook"
 
     def set_codigo(self, codigo):
-        if len(codigo) >= 5:
+        if len(str(codigo)) >= 5:
             self._codigo = codigo
 
     EBOOK1 = (
@@ -219,6 +236,17 @@ class Emprestimo:
 
     def set_data_devolucao(self, data_devolucao):
         self._data_devolucao = data_devolucao
+    
+    def realizar_emprestimo(self, usuario, material):
+        
+        if len(usuario._emprestimos) < usuario._limite_emprestimo:
+            
+            usuario._emprestimos.append(material)
+
+            print("Emprestimo Realizado!")
+
+        else:
+            print("Limite Excedido!")
 
 class Multa:
     def __init__(self, usuario, material, valor, data_geracao, paga):
